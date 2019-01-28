@@ -1,0 +1,94 @@
+Alright guys, welcome to the tutorial/breakdown on IPRB or Introduction to Mendelian Inheritance.
+
+This one is a it tricky and involves some math which I will lay out for you guys as best as possible.
+
+<h3>Given Problem</h3>
+Given: Three positive integers k, m, and n, representing a population containing k+m+n organisms: k individuals are homozygous dominant for a factor, m are heterozygous, and n
+are homozygous recessive.
+Return: The probability that two randomly selected mating organisms will produce an individual possessing a dominant allele (and thus displaying the dominant phenotype). Assume that any two organisms can mate.
+
+[php]
+Example:
+Input    : 2 2 2
+Output    : 0.78333
+[/php]
+
+<h3>Source Code</h3><br>
+[python]
+def runIprb(inputFile):
+    fi = open(inputFile, 'r') #reads in the file that list the before/after file names
+    activityFile = fi.readline().split() #reads in files
+    k, m, n = float(activityFile[0]), float(activityFile[1]), float(activityFile[2])
+
+    total = k + m + n
+
+    r_r = (n / total) * ((n - 1) / (total - 1))
+    d_d = (m / total) * ((m - 1) / (total - 1))
+    d_r = (m / total) * (n / (total - 1)) + (n / total) * (m / (total - 1))
+
+    k_total = r_r + d_d * 1/4 + d_r * 1/2
+    k_total =  1 - k_total
+
+    return str(k_total)
+[/python]
+
+Alright let’s start breaking this down!
+
+<h3>Data Input and Filtering</h3>
+[python]
+def runIprb(inputFile):
+    fi = open(inputFile, 'r') #reads in the file that list the before/after file names
+    activityFile = fi.readline().split() #reads in files
+    k, m, n = float(activityFile[0]), float(activityFile[1]), float(activityFile[2])
+
+    total = k + m + n
+[/python]
+
+So here we have the initial data entry and filtering process. As per usual, the function is being provided with the location of the file with the “inputFile” variable. The file is opened in the second line and in the third line the file data is imported and split into an list with only three items.
+
+The first item in the list (k) represents the amount of homozygous dominant members in the initial sample size, the second (m) represents the heterozygous population count and the third item in the list (n) represents the homozygous recessive population.
+
+Remember, the goal is to find the probability of two randomly chosen members children having a dominant phenotype (which requires at least one dominant allele).
+
+The “total” value will be used later in the function and explained then.
+
+[python]
+r_r = (n / total) * ((n - 1) / (total - 1))
+d_d = (m / total) * ((m - 1) / (total - 1))
+d_r = (m / total) * (n / (total - 1)) + (n / total) * (m / (total - 1))
+[/python]
+
+So, here we go, the main gist of the program, the math behind figuring out the various probabilities.
+
+The first three lines are there to define the probability of each combinations, with r representing recessive and d representing dominant
+
+Here are the formulas we use in this problem:
+r_r
+
+d_d
+
+d_r
+
+ntotal*n-1total-1
+mtotal*m-1total-1
+(mtotal*ntotal-1)+(ntotal*mtotal-1)
+In these equations...
+n = heterozygous
+m = homozygous recessive
+
+So, by using the above formula to calculate the individual values for the probability for each allele in the following generation given the composition of the previous generation’s alleles.
+
+Now, we need to figure out what the probability of randomly selected organisms have offspring with at least one dominant allele (two works as well).
+
+[python]
+k_total = r_r + d_d * 1/4 + d_r * 1/2
+k_total =  1 - k_total
+[/python]
+
+Here goes the last bit of math. To get the total change of finding offspring with at least one dominant allele (k_total) we need to add the probability of getting homozygous recessive, a fourth of homozygous dominant and half of heterozygous. Then, by taking the inverse of generated percent we get the probability of the offspring containing one or two samples of the dominant allele.
+
+[python]
+return str(k_total)
+[/python]
+
+After, just return the total. Hope this helps!

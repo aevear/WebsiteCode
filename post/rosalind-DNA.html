@@ -1,0 +1,91 @@
+Welcome to the first Rosalind Tutorial! [add more?]
+
+In DNA, the objective is to break apart a DNA string and count how many of each base pair the string contains.
+Input    :  a string of DNA
+Output    : four numbers containing the output for ‘A’, ‘C’, ‘G’ and ‘T’
+
+[php]
+Example:
+Input    : AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC
+Output    : 20 12 17 21
+[/php]
+
+This problem is well laid out and does not need to be expanded too much further, but lets take a look a the way that I solved the problem step by step. Here is the entire code :
+
+[python]
+def runDna(inputFile):
+fi = open(inputFile, 'r') #reads in the file that list the before/after file names
+activityFile = fi.read() #reads in files
+aCount, gCount, tCount, cCount = 0, 0, 0, 0
+
+for k in activityFile:
+if k =="A":
+aCount +=1
+if k =="G":
+gCount +=1
+if k =="T":
+tCount +=1
+if k =="C":
+cCount +=1
+
+return (str(aCount) + " " + str(cCount) + " " + str(gCount) + " " + str(tCount))
+[/python]
+
+Lets start by taking a look at line 1 of the code.
+
+<h2>
+Setup
+</h2>
+<br>
+[python]
+def runDna(inputFile):
+[/python]
+
+I have set up each of the rosalind questions as a function that is part of a library that I am constructing to perform the Rosalind tasks in a nice, downloadable package. The way that the library works is by breaking down each problem and providing each function with the name/location of the input file that is outside of the library (but still in a known location to the script running the interface, check out “runLib” to understand where it pulls its data from).
+
+<h2>
+Data Input and Initialization
+</h2>
+<br>
+[python]
+fi = open(inputFile, 'r') #reads in the file that list the before/after file names
+inputData = fi.read() #reads in files
+aCount, gCount, tCount, cCount = 0, 0, 0, 0
+[/python]
+
+The first two line is the standard way to input a data file. Later on, there will be isntances were we need more complicated ways to input data, typically by filtering the inputs and providing more structure but in this initial assignment, inputting the entire file into a single variable is sufficient.
+
+The third line initializes four counters for each of the four base letters in DNA: “A”, “G”, “T” and “C”. These will be used in the following for loop.
+
+<h2>
+Processing the DNA string
+</h2>
+<br>
+[python]
+for k in inputData:
+        if k =="A":
+                aCount +=1
+        if k =="G":
+                gCount +=1
+        if k =="T":
+                tCount +=1
+        if k =="C":
+                cCount +=1
+[/python]
+This for loop goes through the DNA string in the inputData string and the variable ‘k’ represents the nucleotide that is being examined at this current iteration of the for loop. The loop will go through every nucleotide in the inputData string, so every nucleotide will be ‘k’ at one point.
+
+If ‘k’ is one of the four nucleotides then the counter for that specific nucleotide will increase by one.
+
+<h2>
+Return the Results
+</h2>
+<br>
+[python]
+return str(aCount) + " " + str(cCount) + " " + str(gCount) + " " + str(tCount)
+[/python]
+
+This step is relative to my program, as such the ‘return’ could easily be replaced by a ‘print’ function. However I want the program to be used as a library and as such it needs to return the results to the caller. In this case the caller just prints the results but it doesn’t always have to be the case.
+
+With Rosalind, and really in any program, the results need to be formatted in a specific format so that they make sense to who or whatever interprets the data. In this case we need to return the data with each integer separated by a space and in the order “A” -> “C” -> “G” -> “T”.
+
+Well that is the end of the first step by step breakdown for Rosalind. In the following breakdowns I won’t spend as much time on the specific codes and more so on the steps and process that are required to complete each task but don’t be afraid to look up or send me any questions that you encounter! Thanks for reading and good luck on your own code!

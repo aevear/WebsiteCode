@@ -1,0 +1,48 @@
+Welcome to my Rosalind tutorial on RNA
+
+The basic idea of RNA is to convert a given string of DNA into its RNA counterpart. This basically involves regurgitating the given string only replacing the “T” or Thymine with a “U” or Uramine counterpart.
+
+<h2>Given Problem</h2>
+Given: A DNA string having length at most 1000 nt.
+Return: The transcribed RNA string of t
+.<php>
+Input    : GATGGAACTTGACTACGTAAATT
+Output    : GAUGGAACUUGACUACGUAAAUU
+</php>
+
+As you can see in the input/output file, this problem simply requires changing all fo the “T’s” into”’U’s”
+<h2>Source Code</h2><br>
+[python]
+def runRna(inputFile):
+    fi = open(inputFile, 'r') #reads in the file that list the before/after file names
+    activityFile = fi.read() #reads in files
+    finalString = ""
+
+    for k in activityFile:
+            if k =="T":
+                    finalString = finalString + "U"
+            else:
+                    finalString = finalString + k
+    return finalString
+[/python]
+
+The first four lines have already been explined in my earlier tutorial, but essentially they involve inportint the name of the input file and then reading in the entire inputFile as a single line.
+
+<h2>DNA to RNA for loop</h2><br>
+[python]
+for k in activityFile:
+            if k =="T":
+                    finalString = finalString + "U"
+            else:
+                    finalString = finalString + k
+    return finalString
+[/python]
+
+This is the heart of the code and the process shown here is really quite simple. You run through the code and if you come across a “T” you instead send in a “U”. If the nucleotide is not a “T” then you just report the same nucleotide.
+
+[python]
+return finalString
+[/python]
+At the end of this, you return the newly created RNA string to the source.
+
+Thats the end of RNA, Its really not that complicated but I wanted to make sure to go over every bit of code in this tutorial. Make sure to send me any questions that you may have about this code or tutorial!

@@ -1,0 +1,83 @@
+Hello and welcome to my breakdown of Rosalind's Counting Point Mutations (Hamm) problem.
+
+The problem states that you need to compare the two above lines and examine how many differences the seconds string has in relation to the first string, with that in mind let's take a look at the given problem and the overall code.
+
+<h3>Given Problem</h3>
+Given: Two DNA strings s and t of equal length (not exceeding 1 kbp).
+Return: The Hamming distance dH(s,t)
+
+[php]
+Example:
+Input    :
+GAGCCTACTAACGGGAT
+CATCGTAATGACGGCCT
+Output    : 7
+[/php]
+
+<h3>Source Code</h3>
+[python]
+#--------------------------------------------------------------------
+# Hamm
+#--------------------------------------------------------------------
+def runHamm(inputFile):
+    fi = open(inputFile, "r")
+    sourceLine, deviantLine = fi.readline(), fi.readline()
+    hammDistance = 0
+
+    if len(sourceLine) != len(deviantLine):
+        return "The lengths are not the same"
+
+    for k in range(len(sourceLine)):
+        if sourceLine[k] != deviantLine[k]:
+            hammDistance +=1
+
+    return hammDistance
+#--------------------------------------------------------------------
+# Fin
+#--------------------------------------------------------------------
+[/python]
+
+Not too long or complex of a problem but lets start taking a look at what we have here. The main goal is to run through the initial line and compare it with the second line in order to count the number of changes the second line has in relation to the first. It is also critical that hte lines be the same distances other wise the program will fail (also its mentioned in the problem).
+
+<h3>Initiation/Setup</h3>
+[python]
+#--------------------------------------------------------------------
+def runHamm(inputFile):
+    fi = open(inputFile, "r")
+    sourceLine, deviantLine = fi.readline(), fi.readline()
+    hammDistance = 0
+#--------------------------------------------------------------------
+[/python]
+
+Here in the initail stage of the program we have what has become my standard opening to rosalind code.
+
+Line 1: dictates that the following is a function that will be pulled and used in another function and utilizes inputFile (which is the name of the file).
+
+Line 2: Opens the input file and sets “fi” to be the variable that can be called to get data from the input file.
+
+Line 3: Sets two variables that are the key to this function, source line and deviant line (which I could nae something else like compared line or line two, but whatever I like deviant line). Each variable is given a line of the code only using the first two lines.
+
+Line 4: Initializes the hammDistance Variable which we will need later.
+
+<h3>Checking Initial Conditions</h3>
+[python]
+#--------------------------------------------------------------------
+if len(sourceLine) != len(deviantLine):
+        return "The lengths are not the same"
+#--------------------------------------------------------------------
+[/python]
+
+So the key to this section (and what I will be attempting to implement into the future) is to test if the input is sufficient to continue with the function. So, here we check if the length of the two lines are identical, otherwise we return a failure text to the caller of the function so the user knows thats what went wrong.
+
+<h3>Gist of the code</h3>
+[python]
+#--------------------------------------------------------------------
+for k in range(len(sourceLine)):
+        if sourceLine[k] != deviantLine[k]:
+            hammDistance +=1
+#--------------------------------------------------------------------
+[/python]
+
+The last part of the function, here we want to go through each character of each variable (sourceLine and deviantLine) and compare each line to each other. Everytime there is a discrepancy, add one to our counter called “hammDistance” and at the end of the program, report the distance.
+
+Well that’s all today, check out my other tutorials if you need help with more of the rosalind problems!

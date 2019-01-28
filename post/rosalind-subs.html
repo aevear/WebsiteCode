@@ -1,0 +1,81 @@
+Hey guys and welcome to another one of my tutorials for Rosalind! Today we are looking at “Subs” or “Finding a Motif in DNA”.
+
+This is a very important theme in bioinformatics, searching dna for similarity. As many of you know one of the main ways that DNA is sequenced is with the whole genome shotgun method. This involves quickly sequencing many sections of the genome quickly but not in order, then using data science tools to reassemble the broken fragments back together to form a single, cohesive DNA strand.
+
+So now that we have established its relevancy, lets get to the problem!
+
+<h3>Given Problem</h3>
+Given: Two DNA strings s and t (each of length at most 1 kbp).
+Return: All locations of t as a substring of s.
+
+[php]
+Input:
+GATATATGCATATACTT
+ATAT
+Output:
+2 4 10
+[/php]
+
+<h3>Source Code</h3><br>
+[python]
+#-------------------------------------------------------------------------------
+def runSubs(inputFile):
+    fi = open(inputFile, 'r') #reads in the file that list the before/after file names
+    sourceString = fi.readline() #reads in files
+    referenceString = fi.readline() #reads in files
+
+    referenceString = referenceString.strip()
+
+    location, results = 0, ""
+
+    for k in sourceString[:-len(referenceString)]:
+        if k == referenceString[0]:
+            if (sourceString[location:(location + len(referenceString))]) == referenceString:
+                results = results + " " + str(location +1)
+        location += 1
+
+    return results[1:]
+#-------------------------------------------------------------------------------
+[/python]
+
+So now lets get into the code!
+
+<h3>Data Import/Setup</h3><br>
+[python]
+#-------------------------------------------------------------------------------
+def runSubs(inputFile):
+    fi = open(inputFile, 'r') #reads in the file that list the before/after file names
+    sourceString = fi.readline() #reads in files
+    referenceString = fi.strip().readline() #reads in files
+#-------------------------------------------------------------------------------
+[/python]
+
+Standard Intro.
+Line 1: Begin with declaring this all a function (due to be imbedding this all into a function). This part names the function runSubs and declares a single input of input file that takes in the  name of the rosalind file.
+Line 2: Opens the input file
+Line 3: This line creates a single variable called sourceString that will be the main string we search during our program.
+Line 4: This inputs line two as the substring we are using to compare to the source string. We strip to make sure to remove the \n of there happens to be one
+
+<h3>Heart of the Code</h3><br>
+[python]
+#-------------------------------------------------------------------------------
+location, results = 0, ""
+for k in sourceString[:-len(referenceString)]:
+        if k == referenceString[0]:
+                if (sourceString[location:(location + len(referenceString))]) == referenceString:
+                    results = results + " " + str(location +1)
+        location += 1
+
+return results[1:]
+#-------------------------------------------------------------------------------
+[/python]
+
+The main idea here is that we create a for loop that cycles as many times as the length of the big string minus the substring (this is to make sure that we don’t accidentally try to look for a string that is not there later on in the code).
+
+After we have the right length of the for loop, we then check to see if the variable ‘k’, which represents the variable in the main string we are cycling through right now, is the same as the beginning of the smaller string that we want to compare.
+
+We then see the rest of the string is the same as the string that we have, and therefore find an example of the substring we are looking for.
+
+If the string end up being similar we add the location of this find to the results string for reporting later.
+
+After, we increase the location cycle one (we could include this in the initial for loop, I just got into the habit of not doing it but I really should though).

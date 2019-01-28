@@ -1,0 +1,138 @@
+Hello everyone! Today I am taking a look at Rosalinds GC problem and the various steps that it will take to complete it!
+
+The gist of the GC problem is quite easy, to calculate the GC percentage for certain strands of DNA and report which is largest. As some of you may know the GC percentage is sometime considered an important feature for DNA regions and thus a way to calculate the GC content easily is important. Anyway, lets get the the tutorial!
+
+<h3>Given Problem</h3>
+Given: At most 10 DNA strings in FASTA format (of length at most 1 kbp each).
+Return: The ID of the string having the highest GC-content, followed by the GC-content of that string. Rosalind allows for a default error of 0.001 in all decimal answers unless otherwise stated; please see the note on absolute error below.
+
+[php]
+Input:
+>Rosalind_6404
+CCTGCGGAAGATCGGCACTAGAATAGCCAGAACCGTTTCTCTGAGGCTTCCGGCCTTCCC
+TCCCACTAATAATTCTGAGG
+>Rosalind_5959
+CCATCGGTAGCGCATCCTTAGTCCAATTAAGTCCCTATCCAGGCGCTCCGCCGAAGGTCT
+ATATCCATTTGTCAGCAGACACGC
+>Rosalind_0808
+CCACCCTCGTGGTATGGCTAGGCATTCAGGAACCGGAGAACGCTTCAGACCAGCCCGGAC
+TGGGAACCTGCGGGCAGTAGGTGGAAT
+
+Output:
+Rosalind_0808
+60.919540
+[/php]
+
+<h3>Source Code</h3>
+[python]
+#-------------------------------------------------------------------------------
+from rosalindLibrary.loaders.rosalindLoader import rosalindLoader
+#-------------------------------------------------------------------------------
+# GC
+#-------------------------------------------------------------------------------
+
+def runGc(inputFile):
+    fastaNames, fastaData = rosalindLoader(inputFile)
+
+    winner, highest, gcContent, counter = 0, 0.0, 0.0, 0
+    for fastaEntry in fastaData:
+        for nucleotide in fastaEntry:
+            if (nucleotide == "G" or nucleotide == "C"):
+                gcContent += 1
+        if (gcContent/len(fastaEntry)) > highest:
+            highest = gcContent/len(fastaEntry)
+            winner = counter
+        gcContent = 0.0
+        counter += 1
+    highest = highest * 100
+
+    return (fastaNames[winner] + "\n" + str(round(highest, 6)))
+#-------------------------------------------------------------------------------
+[/python]
+
+Alright so lets start taking a look at the code now! As you might have noticed there is actually a bit of code that I have put in the top, the
+[python]
+from rosalindLibrary.loaders.rosalindLoader import rosalindLoader
+[/python]
+Now this is actually another function that I have written to import the data more efficiently, as Rosalind actually uses the fasta format quite a bit and it's good to have a reliable way of importing the data for each of the different projects. Let me post that code real quick and we can take a look at it.
+
+<h3>Import Function</h3>
+[python]
+#-------------------------------------------------------------------------------
+def rosalindLoader(inputFile):
+    fi = open(inputFile, 'r') #reads in the file that list the before/after file names
+    inputFile = fi.read().replace('\n', '').split(">") #reads in files
+    fastaData, fastaNames = [], []
+
+    for inputLine in inputFile:
+        fastaName = ""
+        fastaString = ""
+
+        for char in inputLine:
+            if (char == "A") or (char == "C") or (char == "G") or (char == "T"):
+                fastaString = fastaString + char
+            else:
+                fastaName = fastaName + char
+
+        fastaNames.append(fastaName)
+        fastaData.append(fastaString)
+
+    return fastaNames[1:], fastaData[1:]
+#-------------------------------------------------------------------------------
+[/python]
+
+Wow that's like an entirely separate program altogether! I don’t want to go to into the details but I will go over the mechanics a bit for this code. More or less I use the split function when reading in the file to separate the lines by the > sign, which makes each name and DNA sequence into its own list.
+
+We then fo through each of the list and if any of the letters are A, C, G or T then we put them into a “fastaString list”. Otherwise they go into the “fastaName” list. Afterwards, we send back two arrays, the names then the sequences so that in each case the name and the sequence should belong to the same number in each separate list.
+
+There are a lot fo ways to do this, this just happens to the the way that I do this. Eventually I might need to update it as the rosalind code also includes on occasion a “U” value that means unknown or unread or something which should be included in the code.
+
+Anyway, back to the main code, Lets start with the input lines.
+
+<h3>Initiation/Setup</h3>
+[python]
+#-------------------------------------------------------------------------------
+def runGc(inputFile):
+    fastaNames, fastaData = rosalindLoader(inputFile)
+    winner, highest, gcContent, counter = 0, 0.0, 0.0, 0
+#-------------------------------------------------------------------------------
+[/python]
+
+It’s pretty quick huh! That is the beauty of writing functions, you can just pull them from where ever multiple times and not have to rewrite things constantly! Anyway, first line initiates the function GC that basically just does the rosalond anwser. The second line is the import for our Rosalind Import function which is nice and sweet isnt’t it? The third line initializes four variables that we will be using during our program.
+
+
+
+
+
+
+<h3>Main Code</h3>
+[python]
+#-------------------------------------------------------------------------------
+for fastaEntry in fastaData:
+        for nucleotide in fastaEntry:
+                if (nucleotide == "G" or nucleotide == "C"):
+                    gcContent += 1
+        if (gcContent/len(fastaEntry)) > highest:
+                highest = gcContent/len(fastaEntry)
+                winner = counter
+        gcContent = 0.0
+        counter += 1
+highest = highest * 100
+#-------------------------------------------------------------------------------
+[/python]
+
+Alright, this is the main beast we have to tackle, so lets go over the framework.
+
+<h4>Framwork</h4>
+It goes down like this. The loop runs through each of the fasta sequences and when it encounters a “C” or “G” it adds one to the gcContent variable. Then, if the gc content is higher than the other groups it declares it the highest value and saves it as such.
+
+You could have it calculate the GC content for each one and then just have it look for the highest and declare that the correct one. Honestly the problem with this one is if they are different lengths but whatever, they are not different lengths so we are good.
+
+<h4>Returning the Results</h4>
+[python]
+return (fastaNames[winner] + "\n" + str(round(highest, 6)))
+[/python]
+
+It is important in any program to return the results in the format that they are needed in in order to make sure the code reading your results can actually understand it. In our case here its important to round the GC content score given and make sure that it is provided on a different line.
+
+Anyway that about wraps it up! Hope this helps.

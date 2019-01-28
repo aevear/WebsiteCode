@@ -1,0 +1,100 @@
+Hey guys, here I would like to explain to you how to do a clean install of deepchem for you to use. Unfortunately tthe explination on the deepchem page is not quite sufficient to completely install and does still require some additional downloads and tweaks. Lets get started!
+<hr>
+<img src="http://xanhahn.me/wp-content/uploads/2018/11/Screen-Shot-2018-11-24-at-3.40.44-PM.png" alt="Terminal Load Screen">
+
+<hr>
+<h3>Begin with a Clean Install</h3>
+1. To begin this tutorial I will state that I performed all these tasks on a new ubuntu installation with minimum features running on a virtual box simulator. I would suggest that you do the same as well.
+
+<h3>Pre Deepchem Dependencies</h3>
+2. Pre-deepchem installations
+A new version of Ubuntu requires quite a few additions to install deepchem.
+<h4>Installing Git</h4>
+First we need to install git that is used to install other packages that we will need for the installation.
+[php]
+Sudo apt install git
+[/php]
+<h4>Installing Miniconda</h4>
+After git we need to download and install miniconda which is a package manager that contains conda and its dependencies.
+[php]
+wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+bash Miniconda3-latest-Linux-x86_64.sh
+[/php]
+
+<h4>Restart Terminal</h4>
+After installing Miniconda its necessary to restart the terminal for the changes to take effect.
+
+<h4>Installing Anaconda</h4>
+Next we need to install Anaconda which contains about a hundred packages that will be used by deepchem (numpy is one of them). We can use the newly isntalled mini conda to isntall Anaconda.
+[php]
+conda install -c anaconda python
+[/php]
+
+<h4>Installing Cython</h4>
+The last of the pre-deepchem dependencies that are needed is the Cython package that attempts to give python some of the efficiency that C posses.
+[php]
+Pip install cython
+[/php]
+
+
+
+
+<h3>Install Deepchem</h3>
+<hr>
+Now that we have all the dependencies squared away we can start installing deepchem. At this point we do follow the steps provided on their main website but I will still explain what each of the steps does so that the reason behind each step becomes clear.
+
+<img src="
+http://xanhahn.me/wp-content/uploads/2018/11/Screen-Shot-2018-11-24-at-3.38.40-PM.png" alt="File Window on Deepchem">
+
+
+
+<h4>Clone Deepchem</h4>
+This step will clone or download the latest branch of deepchem into whatever folder you are currently in.
+[php]
+git clone https://github.com/deepchem/deepchem.git
+[/php]
+
+<h4>Cd into Deepchem</h4>
+A very simple step, you just need to move into the deepchem folder so that we can more directly interact with the built in install scripts.
+[php]
+git clone https://github.com/deepchem/deepchem.git
+[/php]
+
+<h4>Clone Deepchem</h4>
+This step will clone or download the latest branch of deepchem into whatever folder you are currently in.
+[php]
+cd deepchem
+[/php]
+
+<h4>Install Deepchem</h4>
+This install program actually uses a programming environment to install deepchem and deepchem dependencies into. This is a very useful feature that isolates the specific packages and code that will be running deepchem from the rest of the machine.
+[php]
+bash scripts/install_deepchem_conda.sh deepchem
+[/php]
+
+<h4>Activate the Deepchem Source Code</h4>
+Now we activate the source environment for deepchem called “deepchem”. Typing <i>source deactivate deepchem</i>. Will exist the deepchem environment
+[php]
+source activate deepchem
+[/php]
+
+<h4>Setup Deepchem on Deepchem Environment</h4>
+Now that we have deepchem installed we need to actually make it usable in the deepchem environment. This code will allow you to actually run deepchem in the environment as it is not set up outside of the environment. Try using this code outside of the environment if you want it to not use the environment and instead be in the base code of your system.
+[php]
+python setup.py install
+[/php]
+
+
+
+<h2>Testing Deepchem</h2>
+<hr>
+<img src="
+http://xanhahn.me/wp-content/uploads/2018/11/Screen-Shot-2018-11-24-at-3.44.59-PM.png
+" alt="File Window on Deepchem">
+
+After it is installed and setup, it is time to test the programs themselves.
+[php]
+Cd examples
+[/php]
+
+Now we have to run the code. The test code runs two example programs, Tox21 and Adme. Unfortunately the Adme code requires data from an amazon web server that they are no longer supporting and will fail. The Tox21 code however will run. If you are interested in Tox21 I have written an entire article on this code alone, go check it out!

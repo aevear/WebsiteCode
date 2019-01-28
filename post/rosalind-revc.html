@@ -1,0 +1,79 @@
+Welcome to my Rosalind tutorial on REVC!
+
+A big step up from DNA and RNA, in this Rosalind assignment, we convert our given DNA string into its complement!
+
+This step mostly consist of using a table and converting each of the four possible base pairs into its inverse (in this case, A&#11020;T and C&#11020;G). After, we reverse the string and return the newly created inverse DNA string. We will mostly follow similar steps as compared to the last two steps, DNA and RNA.
+
+<h3>Given Problem</h3>
+Given: A DNA string s of length at most 1000 bp.
+Return: The reverse complement sc of s.
+[php]
+Input    : AAAACCCGGT
+Output    : ACCGGGTTTT
+[/php]
+
+
+<h3>Source Code</h3>
+[python]
+def runRevc(inputFile):
+    fi = open(inputFile, 'r') #reads in the file that list the before/after file names
+    inputData = fi.read() #reads in files
+    finalString = ""
+
+    for k in inputData:
+        if k =="T":
+                finalString = finalString + "A"
+        if k =="A":
+                finalString = finalString + "T"
+        if k =="G":
+                finalString = finalString + "C"
+        if k =="C":
+                finalString = finalString + "G”
+    finalString = finalString[::-1]
+
+    return finalString
+[/python]
+
+Heeeey pretty similar to the last two right? So lets start going over it step by step as there are a few technical things that we should take a look at.
+<h3>Initialization Code</h3>
+[python]
+def runRevc(inputFile):
+    fi = open(inputFile, 'r') #reads in the file that list the before/after file names
+    inputData = fi.read() #reads in files
+    finalString = ""
+[/python]
+So here we go! Here we have the same start as the last two programs (This trend will continue for a while until we start using more complicated entry functions that I go into later). So, the function that I am using here (in order to make a library that can be used to quickly call each of problems as a function in order to solve the problems in a packaged way).
+
+The second line here inputs the given file with the third line importing the entire thing into a single line (not elegant but it works so whatever). Last line initializes the eventual results string.
+
+<h3>For Loop Iteration Time</h3>
+[python]
+for k in inputData:
+        if k =="T":
+                finalString = finalString + "A"
+        if k =="A":
+                finalString = finalString + "T"
+        if k =="G":
+                finalString = finalString + "C"
+        if k =="C":
+                finalString = finalString + "G"
+[/python]
+The program here iterates over each nucleotide in the given DNA string and provides the “finalString” variable with its alternative nucleotide (A&#11020;T and C&#11020;G).
+
+<h3>Reversing the String</h3>
+[python]
+finalString = finalString[::-1]
+[/python]
+This is one of the more complicated aspects of this code (though still, not really all that complicated). Basically, it involves some properties of list in python
+
+x[startAt:endBefore:skip]
+
+The list function is broken into three parts with each part expressing a specific function of the string data type broken apart by colons. The first part states where we begin pulling data from the string (empty in our case so that we can pull from the entire string). The second part states where we should stop pulling from the string (again, empty). The last part states how you should skip characters in the string, for instance if it was two then we could take every other line (0,2,4,6,8,10, etc…..).
+
+In our case, we are skipping by -1, which means we just go backwards for each iteration effectively reversing the string.
+
+<h3>Return Results</h3>
+[python]
+return finalString
+[/python]
+The last step involves us just returning the results string, which is then printed by the source function (you could print it if you want in your code, just replace ‘return’ with ‘print’)

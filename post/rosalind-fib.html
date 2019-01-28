@@ -1,0 +1,81 @@
+<p style="background-color: #666; padding: 15px;"><a href="#">Jump to part 2</a><br /><a href="#">Jump to part 3</a></p>
+Alright guys, here we go with Rosalind: FIB. When I first started doing rosalind, this was far and away the hardest problem I had to solve before I started my masters. I believe that the source of my confusion had to deal with the fact that there is really not enough explanation of the problem at the site and that the supporting information given by the Rosalind is just barely enough to figure out what we are suppose to achieve.
+
+Maybe this is intentional? Anyway, lets get started with the breakdown…
+
+<h3>Given Problem</h3>
+Given: Positive integers n≤40 and k≤5
+Return: The total number of rabbit pairs that will be present after n months, if we begin with 1 pair and in each generation, every pair of reproduction-age rabbits produces a litter of k rabbit pairs (instead of only 1 pair).
+
+[php]
+Example:
+Input    : 5 3
+Output    : 19
+[/php]
+
+<h3>Source Code</h3><br>
+[python]
+def runFib(inputFile):
+    fi = open(inputFile, 'r') #reads in the file that list the before/after file names
+    inputData = fi.readline().split() #reads in files
+    n, m = int(inputData[0]), int(inputData[1])
+
+    mature, immature = 0, 1
+
+    for i in range(n-1):
+            babies = mature * m
+            mature = immature + mature
+            immature = babies
+            total = mature + immature
+    return total
+[/python]
+
+<h3>Data Import/Setup</h3><br>
+[python]
+def runFib(inputFile):
+    fi = open(inputFile, 'r') #reads in the file that list the before/after file names
+    inputData = fi.readline().split() #reads in files
+    n, m = int(inputData[0]), int(inputData[1])
+[/python]
+
+We’ve got the standard opening I have been using up to this point for this program. Once we get into the more complex problems we’ll use a more cool data entry function for stuff like fasta. The entire program is built into a function at the moment that will eventually be built into a library that will solve all the problems in rosalind.
+
+The second line opens up the file with the third line reading in the file line and breaking it into a list with each element of the list representing one of the initial variables.
+
+In the fourth line we assign these variables to their given assignment in the original problem. So instead of using inputData[0] we can use n and m respectively.
+
+<h3>Calculating Babies</h3><br>
+[python]
+mature, immature  = 0, 1
+for i in range(n-1):
+    babies = mature * m
+    mature = immature + mature
+    immature = babies
+    total = mature + immature
+[/python]
+
+Wow, a lot is going on here huh? Line one begins with initializing two variables. The number of mature rabbits and the number of immature rabbits. The problems states that we are given one immature rabbit at the beginning (which is not clearly stated in the problem in my opinion) and there are no mature rabbits at the start, hence the 0, 1 initialization stage. So now, before we look at the actual equation and formula let’s take a look at this diagram I made to clear some things up.
+
+<span style="display: block; margin-left: auto; margin-right: auto; width: 75%;">
+<img alt="" class="center" src="http://xanhahn.me/wp-content/uploads/2018/10/FIB-drawing1.png" style="width: 487.50px; height: 366.91px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title="">
+</span>
+
+
+So basically what happens is that you are given two parameters. First is how long this breeding experiment goes on for and second is how many offspring does each set of parents have each generation after reaching maturity. In the above diagram, the circles each represent a breeding pair of rabbits and as you can see they go through three stages of the life cycle, baby -> Immature -> Mature. Once a breeding pair has hit the “Mature” stage they commence with breeding the k rabbit pairs each generation.
+
+<h3>Algorithm</h3>
+
+[python]
+babies = mature * m
+mature = immature + mature
+immature = babies
+total = mature + immature
+[/python]
+
+In line one, we update the amount of babies that are in the list, multipling the “Mature” breeding pairs with the k value provided in the begining of the program (in the above diagram the number of breeding pairs is three).
+
+After we update the amount of mature pairs there are my adding all the previous immature to the now mature pairs.
+
+Then, we set the new generation of immature breeding pairs but setting the babies value to the immature value. At the end we update our list and set total to be mature and immature (which have already been updated, so it is as if we add mature and immature that are in the mature variable with the amount of babies stored in the immature variable).
+
+After all this, return or print the total value. Hope this helped and feel free to message me if you have any more questions about this assignment.
