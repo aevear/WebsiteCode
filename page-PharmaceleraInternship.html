@@ -1,0 +1,69 @@
+<h3>Drug Discovery Internship at Pharmacelera</h3>
+After some time at the University of Barcelona Autonoma, they began to explain to us the process of working on an internship in order to have some real world experience on bioinformatics. The list was long and varied of places that already had made agreements with the school and would have positions open to accept them.
+
+The options included nearby research groups and facilities, on campus labs and professors that had taught us at some time during the program and of course, private companies outside the university.
+
+One of which caught my eye, in fact the company is what drove me into taking the specialization Protein Engineering classes that involve going over and understanding the mechanics of protein engineering in more detail.
+
+Pharmacelera was a startup based in a startup incubator in the middle of Barcelona filled with ambitions and educated people trying to bring their ideas to the marketplace. Pharmacelera was a company that specializes in producing potential candidate drugs for pharmaceutical companies. In that regard, they would lease out their software that provided fast and accurate results to research groups so that the can generate their own list of potential candidate drugs based on specific criteria explained when setting up the simulation.
+
+But out of all the internships that I could have chosen (and had been offered) I chose Pharmacelera. I chose it to gain experience working outside academia, I chose it to gain experience in a field that I was passionate about and I chose it to because it represented the best opportunity to develop my skills in a fast paced environment.
+
+<h3>Project 1: Promiscuity Project</h3>
+
+I worked on a variety of projects while at pharmacelera. I had originally signed on with them on a project that involved developing tools that would work with their pipeline and use molecular data on known target proteins and attempt to correlate if each test ligand would have an effect on the protein. We had around fifty proteins that were known to be common reasons that drugs failed clinical trials and if we thought that any ligands had the potential to interact with them we needed to be able to filter them out of the candidate ligands.
+
+However, this project was not destined to be completed as we lacked sufficient data on the candidate proteins and could not find any in known protein databases.
+
+<h3>Project 2: QSAR and Parameterization Methods Comparison</h3>
+ The second project I began to work on is the one that I spent the vast majority of the time on and eventually turned into the project that I did my master thesis on. In order to explain the project however I will need to explain some of the basics for what we did at the company.
+
+<h4>QSAR</h4>
+QSAR stands for Quantitative structure–activity relationship and is when you attempt to correlate the parts of a molecule to what they could potentially affect. This involves generating models of either the ligand or the protein active site, then, using this data to find out why and how they are connected. Here is an image that I used in my Master's Thesis paper that can help explain the processes that QSAR uses.
+
+<center><img src="http://xanhahn.me/wp-content/uploads/2019/01/pmml-for-qsar-model-exchange-3-728.jpg" alt="" width="400" height="272" class="alignnone size-medium wp-image-940" /></center>
+
+<h4>Schrodinger Equations</h4>
+The Schrodinger Equations are the mathematical models that are the basis for calculating and the quantum structure of an atom or a molecule. Hypothetically, these equations will provide you with completely accurate results for any size structure.For instance, you could perform exact testing to see if a medicine will react with a known protein and the level at which it will react exactly.
+
+However, this is quite impossible at the moment as the level of calculations required to perform the level of accuracy to be 100% sure of a ligand-protein interaction requires more computational power than we have on earth at the moment. And you would need to perform an untold amount of these to find out if the candidate drug reacts well with all important proteins.
+
+To solve this, we have to use levels of estimations which is really where the debate lies. Using high levels of estimations grants you a higher degree of accuracy on predicted effects but at the cost of increased computational resource (which on a supercomputer, get quite expensive).
+
+Regardless, achieving high levels of accuracy with low computational cost is the goal of many research ventures and the main objective of Pharmacelera. The way that we achieved this was by using Parameterization.
+
+<h4>Parameterization</h4>
+Parameterization is basically the process of converting a complex 3d structure of a molecule into a more manageable two dimensional structure while still retaining as much of the molecules characteristics. Many people do this, however we differed in that we used different molecular characteristics to perform our test than other people have used. Notably, we used the hydrophobic and hydrophilic regions of the molecules more heavily when performing calculations (One of the big properties of a pharmaceutical is the hydrophobicity of the molecule as it is an important indicator of its ability to be digested and arrive at the target destination). [*maybe include parameterization file?]
+
+In my project we examined the difference in using two different systems of parameterization. This is explained more in my in-depth analysis of my master thesis found here [add link].
+
+<h4>QSAR methods</h4>
+Quantitative structure-activity relationships (QSAR) summarize a supposed relationship between chemical structures and biological activity in a data-set of chemicals. These techniques are used to model pharmacokinetics and pharmacodynamics (drug potency) for a given set of molecules.
+
+The main use for this type of study is to attempt to correlate the structure of a molecule with its potential reactivity to a known or unknown molecule. The science is not that exact but is slowly over time becoming much more accurate. The main issues as always is between accuracy and computational resources needed to obtain the specified level of accuracy.
+
+In my internship we used several systems of interpreting QSAR. More on this can be found in my article I wrote detailing my paper. [*add reference to my other paper]. Basically we used CoMFA, CoMSIA and Pharmacelera’s PharmQSAR to perform QSAR calculations to varying degrees of success. The following image provides an overview of some of the basics of QSAR.
+
+<center><img src="http://xanhahn.me/wp-content/uploads/2019/01/QSAR-Image-300x204.png" alt="" width="600" height="408" class="alignnone size-medium wp-image-940" /></center>
+
+<h4>Project Summary: Method Comparison</h4>
+The project was primarily a paper comparing two sets of methods against each other in relation to accuracy. Two parameterization methods between <i>DFT and semi-empirical RM1 </i> and two QSAR methodologies, <i>H1/H2 based QSAR and CoMFA </i>. In both of these comparisons we used the Sutherland data set from several of his papers that had been compiled from known molecules that react to specific proteins. <a href="http://cdb.ics.uci.edu/cgibin/LearningDatasetsWeb.py">Datasets here</a>.
+
+<h4>Results</h4>
+The results of the paper basically implied that using the less computer intensive methods of parameterization and QSAR provided similar results. If I had more time I could put a large comparison on time constraints each required and compile a graph that showed at which point each methods level of accuracy needed what amount of computational resource. Next time right?
+
+<h3>Project 3: Deepchem</h3>
+After I had finished working on the Comparison project I was assigned to look into the stanford project on Computational chemistry called “DeepChem”. <a href=”https://www.deepchem.io/”>Link Here.</a>
+
+It basically provides a framework of tools to perform various computational chemistry projects that utilizes Tensorflow as its machine learning core. Really cool stuff that I suggest you take a look at, the team that wrote it also provides constant feedback on Gitter so if you need help or have bugs it's easy to get a response.
+
+I spent a month looking into the code, learning how all the libraries and code functioned. It was the first time I had attempted to use a code of this level of complexity. The tools are documented but in my opinion it could use a lot more (I wrote about this in my deepchem page located <a ref=“*add deepchem”>here</a>).
+
+The project that they wanted me to work on was to integrate the tools found on Deepchem for using machine learning to provide predictions on chemical toxicity on ten well known critical proteins (*add a link about this set). Typically, there are some forty seven critical proteins that if interacted with negatively by any new drug could have dangerous side effects that typically prohibit further clinical trials.
+
+Now this code only looks over ten, and it only uses SMILE codes which again, is not optimal, but it provides a lot more help than nothing.
+
+Anyway I did not manage to finish exploring and writing the code needed for this project while I was working at Pharmacelera but I did complete it on my own some months later after looking through the Deepchem Library once again. The Article breaking down my code for Deepchem is located <a ref=”*add link to deepchem text here”>.
+
+<h3>Conclusion</h3>
+I learned a lot at Pharmacelera and I am glad that I had the opportunity to perform my internship there. Had I some more time there I could have completed more projects and potentially have implemented machine learning code into the Pharmacelera Pipeline, starting of course with basic toxicology prediction but eventually utilizing machine learning code at all sorts of levels.

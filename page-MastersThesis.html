@@ -1,0 +1,93 @@
+I went the the University of Barcelona Autonoma in order to learn as much as I can about the wide field of Bioinformatics and having the opportunity to intern at Pharacelera was tremendous in providing me with the skills and knowledge to work in the field.
+
+During my internship I was assigned several projects, for now I want to discuss the one that ultimately led to my Masters Thesis project called “Evaluation of the impacts of DFT(B3LYP)- and semi-empirical (RM1)-derived MST hydrophobic descriptors on 3D-QSAR (HyPhar) statistical performances: A preliminary study.”
+
+So what exactly did I do? If you know about molecular parameterization or molecular modeling feel free to read my paper, especially the introduction to understand exactly what I did. Otherwise let me explain a bit what all this means.
+
+<h3>Overall Goals of the Project<h3>
+My Project consisted of Two major parts shown below...
+
+<table style="font-weight:normal">
+<!--Title-->
+<tr>
+ <th></th>
+ <th>Compares</th>
+ <th>Examined Methods</th>
+</tr>
+
+<tr>
+ <th>Objective One</th>
+ <th>Parameterization Methods</th>
+ <th>DFT and semi-empirical RM1</th>
+</tr>
+
+<tr>
+ <th>Objective Two</th>
+ <th>QSAR Methods</th>
+ <th>H1/H2 based QSAR and CoMFA</th>
+</tr>
+
+</table>
+
+
+
+<h3>Computer Aided Drug Design</h3>
+When developing new pharmaceuticals, it has become more and more important to model potential drug candidates with computer simulations due to the just astronomical cost of drug development in the modern world.
+
+Overall, drug simulations have a ways to go and still only really can filter out complete duds. But this is a good thing as it means that researchers can still filter out SOME of the drug candidates which saves cost when performing material testing on drugs.
+
+Anyway, once you decide that you want to simulate drugs, how do you actually go about doing that? In our case we performed ligand based simulations (as opposed to structure based) which involves creating a model of the molecule based on its electromagnetic, steric and in our case hydrophobic parameters.
+
+<center><img src="http://xanhahn.me/wp-content/uploads/2019/01/hsp90.png" alt="" width="400" height="272" class="alignnone size-medium wp-image-940" /></center>
+
+
+Here is an example of a pharmacophore that has several areas of influence, i.e.the green, white and orange areas. Though this is not a specific example per se, it does allow us to see what it could mean to model a molecule based on its areas of influence.
+
+<h4>Parameters</h4>
+The basic idea is that we need ways to simplify the molecule for modeling. Historically the main way has been using DFT or density functional theory to generate a model of the atoms based on the valence electrons of each atom. The newer (faster way but less accurate way) is to use a table to estimate the values of the atoms. In example, we say the value is “15” if the atom “C” is connected to another “C” but “14” if the second “C” is also connected to an oxygen. While those numbers are in no way real, it helps explain how the table might operate.
+
+<h4>QSAR Methods</h4>
+<h5>CoMFA</h5>
+CoMFA, Comparative Molecular Field Analysis, is the most widely used and the oldest 3D QSAR method. CoMFA was first proposed in 1988 by Cramer et al. as the first 3D-QSAR that correlated both steric and electrostatic fields with partial least square regression to find a relationship between the “predictor” variables and the reaction from the “response” variables. CoMFA relies on the idea that biological activity is related to both the strength and size of the non-covalent interaction fields surrounding the molecules.
+
+CoMFA works by deriving a series of superimposed conformations for each molecule in the set provided. These superimposed molecules are assumed to be in their biologically active conformation for the sake of the calculations. After that, Coulomb (electrostatic) and Lennard-Jones (steric) potentials are calculated at each point of a regular Cartesian 3D grid by using an atom probe (generally a positively or negatively charged carbon atom).
+<table style="font-weight:normal">
+<!--Title-->
+<tr>
+ <th><i>Coulomb's Law</i></th>
+ <th><img src="http://xanhahn.me/wp-content/uploads/2019/01/Columbs-Law-300x132.png" alt="" width="100" height="44" class="alignnone size-medium wp-image-945" /></th>
+</tr>
+
+<tr>
+ <th><i>Lennard-Jones potential</i></th>
+ <th><img src="http://xanhahn.me/wp-content/uploads/2019/01/Potential-Equasion-300x43.png" alt="" width="300" height="43" class="alignnone size-medium wp-image-946" /></th>
+</tr>
+
+</table>
+
+The so calculated fields values are then stored in a NxM matrix and a quantitative relationship (the QSAR equation) between activity and the projected fields is finally extrapolated by means of PLS statistical analysis. The entire process depends on several factor  as:
+<ol>
+ <li>The conformations chosen for the molecules (which is supposed to be the bioactive one)
+ <li>The alignment
+ <li>The physicochemical parameters used to describe each of the molecules in the data set).
+ <li>The projections function.
+ <li>The statistical method used to extrapolate quantify the structure-activity relationship.
+</ol>
+
+In CoMFA and other 3D-QSAR methods, compounds are divided in training and test sets. The former is used to generate the QSAR equation (the model) while the latter is used to evaluate the predictive power of the pre-generated model.
+
+<h5>H1/H2 Based QSAR</h5>
+H1 and the H2 Methods are based on Pharmacelera’s Proprietary Software that uses a framework of HyPhar (Hydrophobic Pharmacophore) when representing a molecule. PharmQSAR uses a unique 3D representation of molecules based on hydrophobic fields derived from semi-empirical Quantum-Mechanics (QM) calculations. Such fields was revealed able to describe with high accuracy the factors that determine ligand/receptor interactions found from previous studies.
+
+
+<h4>What was the Value of Completing this Project?</h4>
+The goal of many companies, including <i>Pharamcelera</i> is to either increase accuracy and maintain cost or maintain accuracy and decrease cost. We worked on the second path, attempting to use accurate estimators to provide similar results to the very expensive simulations with less cost.
+
+<h4>What were the Steps Taken in this Project?</h4>
+In the grand scale what I did was performed several sets of test, one main group involved performing standard DCT parameterization and CoMFA Analysis. The other side involved generating RM1 parameters and H1/H2 Analysis (H1 and H2 based analysis are proprietary methods from pharamcelera they are attempting to license out). Basically, the H1/H2 methods use a combination of features to perform the calculations rather than all of the possible ones in order to make the calculations less difficult.
+
+The actual brunt of the project involved two parts. The first involved preparing and organizing the datasets that I had been provided from the company into a usable set to perform our test (although they had already been compiled for the most part by a different author noted in our paper, I mostly just went to his sources and obtained the originals).
+
+The second part, and the part that I enjoyed the most, involved creating a seven part program to actually perform all the of the calculations in a row for the RM1 parameters and the H1/H2 analysis. The program taught me a lot about computer programming as I received almost no help from the company and had to figure the vast majority of the program with independent sources.
+
+I have a specific section I have written about my coding project so I won’t go over it in too much detail here, but feel free to check out my other post for a more detailed look at it!
